@@ -7,20 +7,162 @@
     <meta name="title" content="Dear Sun">
     <meta name="description" content="Collecting this wasn't easy — your star is my motivation to keep going! Contributions are welcome too.">
     <link rel="icon" type="image/x-icon" href="https://cdn.jsdelivr.net/gh/sun0225SUN/photos/img/20210715233345.png">
-    <link rel="stylesheet" href="css/love.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+        .icon-love {
+            width: 400px;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+        body {
+            overflow: hidden; 
+        }
+        .container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        /*---------------------- body_left -------------------------*/
+        .body_left {
+            width: 300px;
+            height: 300px;
+            left: 0;
+            bottom: 110px;
+            position: absolute;
+            z-index: 98;
+        }
+        /*---------------------- body_center -------------------------*/
+        .container .love {
+            width: 520px; 
+            height: 440px; 
+            left: 50%;
+            top: 50%;
+            position: absolute;
+            margin: -260px 0 0 -220px;
+        }
+        .love .block {
+            right: 0;
+            position: absolute;
+            visibility: hidden;
+            background-color: yellow;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+        .text-love {
+            position: absolute;
+            top: 110%;
+            left: 50%;
+            font-size: 48px;
+            font-weight: bold;
+            color: #c40908;
+            font-family: Arial, sans-serif;
+            white-space: nowrap;
+            z-index: 100;
+            letter-spacing: 2px;
+            display: none;
+            opacity: 0;
+        }
+        .text-love.show {
+            display: block;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        .love .block div {
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            /* Đã sửa: Gọi thẳng file heart.png nằm chung thư mục */
+            background: url("heart.png") no-repeat;
+            background-size: contain;
+            box-sizing: border-box;
+        }
+        /*---------------------- footer -------------------------*/
+        @keyframes border {
+            0% { width: 0; }
+            5% { width: 5%; }
+            10% { width: 10%; }
+            15% { width: 15%; }
+            20% { width: 20%; }
+            25% { width: 25%; }
+            30% { width: 30%; }
+            35% { width: 35%; }
+            40% { width: 40%; }
+            45% { width: 45%; }
+            50% { width: 50%; }
+            55% { width: 55%; }
+            60% { width: 60%; }
+            65% { width: 65%; }
+            70% { width: 70%; }
+            75% { width: 75%; }
+            80% { width: 80%; }
+            85% { width: 85%; }
+            90% { width: 90%; }
+            95% { width: 95%; }
+            100% { width: 100%; }
+        }
+        .footer {
+            bottom: 30px;
+            position: relative;
+            z-index: 99;
+        }
+        .footer .border .border-top {
+            border-top: 3px solid black;
+            transform-origin: left center;
+            -webkit-animation: border 12s linear;
+            -o-animation: border 12s linear;
+            animation: border 12s linear;
+            animation-fill-mode : both;
+        }
+        .footer .border .border-bottom {
+            float: right;
+            border-top: 3px solid red;
+            transform-origin: right center;
+            -webkit-animation: border 7s linear 12s;
+            -o-animation: border 7s linear 12s;
+            animation: border 7s linear 12s;
+            animation-fill-mode : both;
+        }
+        .footer .copyright {
+            width: 100%;
+            height: 30px;
+            position: absolute;
+            bottom: -30px;
+            text-align: center;
+        }
+        .copyright div {
+            width: 30%;
+            line-height: 30px;
+            display: inline-block;
+        }
+        .copyright div span {
+            color: dimgray;
+        }
+    </style>
 </head>
-
 
 <body>
 
-    <audio autoplay="autopaly" loop="loop" id="audios" preload="auto">
-        <source src="MP3/1.mp3" />
+    <audio autoplay="autoplay" loop="loop" id="audios" preload="auto">
+        <source src="1.mp3" />
     </audio>
 
     <div class="container" onselectstart="return false;" unselectable="on" style="-moz-user-select:none;">
-
         <div class="body_left">
-            <img src="images/biubiubiu.gif" alt="" ondragstart='return false;'>
+            <img src="biubiubiu.gif" alt="" ondragstart='return false;'>
         </div>
 
         <div class="body_center love">
@@ -41,8 +183,125 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="js/love.js"></script>
+    <script type="text/javascript">
+        const blk_pitn = {
+                block1: [[0, 1], [0, 0], [-1, 0], [-1, -1]],
+                block2: [[0, 1], [0, 0], [-1, 0], [0, -1]],
+                block3: [[-1, 1], [0, 0], [-1, 0], [-1, -1]],
+                block4: [[0, 1], [0, 0], [-1, 0], [-1, -1]],
+                block5: [[-1, 1], [0, 0], [-1, 0], [0, -1]],
+                block6: [[0, -1], [0, 0], [-1, 0], [1, -1]],
+                block7: [[-1, -1], [0, 0], [-1, 0], [1, 0]],
+                block8: [[-1, 1], [0, 0], [-1, 0], [-1, -1]],
+                block9: [[0, -1], [0, 0], [-1, 0], [1, 0]],
+                block10: [[-1, 1], [0, 0], [-1, 0], [1, 0]],
+                block11: [[2, 0], [0, 0], [-1, 0], [1, 0]],
+                block12: [[0, 1], [0, 0], [-1, 0], [0, -1]],
+                block13: [[0, 1], [0, 0], [-1, 0], [-1, -1]],
+                block14: [[1, 1], [0, 0], [-1, 0], [1, 0]],
+                block15: [[1, -1], [0, 0], [-1, 0], [1, 0]],
+                block16: [[-1, -1], [0, 0], [-1, 0], [1, 0]],
+                block17: [[0, 1], [0, 0], [-1, 0], [0, -1]],
+                block18: [[0, 1], [0, 0], [-1, 0], [-1, -1]],
+                block19: [[0, -1], [0, 0], [-1, 0], [1, 0]],
+                block20: [[1, -1], [0, 0], [-1, 0], [1, 0]],
+                block21: [[0, 1], [0, 0], [-1, 0], [-1, -1]],
+                block22: [[1, 1], [0, 0], [-1, 0], [1, 0]],
+                block23: [[0, 2], [0, 0], [0, -1], [0, 1]]
+            },
+            offset_pitn = {
+                block1: [5, 3],
+                block2: [5, 1],
+                block3: [3, 4],
+                block4: [3, 2],
+                block5: [3, -1],
+                block6: [2, 5],
+                block7: [2, 1],
+                block8: [1, -1],
+                block9: [1, -3],
+                block10: [1, 2],
+                block11: [0, 3],
+                block12: [0, 0], 
+                block13: [-1, -4],
+                block14: [0, -2],
+                block15: [-2, 4],
+                block16: [-2, 2],
+                block17: [-2, 0],
+                block18: [-3, -2],
+                block19: [-4, 0],
+                block20: [-3, 5],
+                block21: [-5, 3],
+                block22: [-4, 1],
+                block23: [-6, 1]   
+            };
 
+        let blocks = document.getElementsByClassName("block"),
+            block = blocks[0],
+            love = document.getElementsByClassName("love")[0],
+            timer = null,
+            index = 0, 
+            clone_block;    
+
+        block.style.top = "50%";
+        block.style.left = "50%";
+        block.style.margin = "-20px 0 0 -20px";
+
+        const block_left = parseFloat(window.getComputedStyle(block, null).left.slice(0, -2)),
+            block_top = parseFloat(window.getComputedStyle(block, null).top.slice(0, -2));
+
+        function Next() {
+            if (++index >= 24) {
+                clearInterval(timer);
+                Rise();
+                return;
+            }
+
+            block.style.visibility = "visible"; 
+            block.style.left = block_left + 40 * offset_pitn["block" + index][0] + "px";
+            block.style.top = block_top - 40 * offset_pitn["block" + index][1] + "px";
+            for (let i = 0; i < block.children.length; i++) {
+                block.children[i].style.left = blk_pitn["block" + index][i][0] * -40 + "px";
+                block.children[i].style.top = blk_pitn["block" + index][i][1] * -40 + "px";
+            }
+
+            clone_block = block.cloneNode(true);
+            love.appendChild(clone_block);
+
+            if (blocks.length >= 24) {
+                blocks[blocks.length - 1].children[2].style.display = "none";
+                block.style.display = "none";   
+            }
+        }
+
+        function Rise() {
+            let timer2 = null,
+                distance = 0;
+            const target = 120, 
+                speed = 1;
+
+            let love_top = parseFloat(window.getComputedStyle(love, null).top.slice(0, -2));
+
+            timer2 = setInterval(() => {
+                distance += speed;
+                if (distance >= target) {
+                    clearInterval(timer2);
+                    
+                    let textLove = document.querySelector(".text-love");
+                    if (textLove) {
+                        textLove.classList.add("show");
+                    }
+                }
+                love.style.top = (love_top - distance) + "px";
+            }, 22);
+        }
+
+        window.onload = function () {
+            setTimeout(() => {
+                timer = setInterval(() => {
+                    Next();
+                }, 300);
+            }, 12000);
+        };
+    </script>
 </body>
-
 </html>
